@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <h:outputStylesheet library="webjars" name="primeflex/2.0.0/primeflex.min.css" />
+</h:head>
+<h:body>
+    <div style="max-width: 90vw; margin:0 auto;">
+    <div id="top" class="top" >
+        <ui:insert name="top">Top Section</ui:insert>
+        <p:tabMenu activeIndex="#{param.i}">
+            <p:menuitem value="Home" url="index.xhtml" icon="pi pi-fw pi-upload">
+                <f:param name="i" value="0"/>
+            </p:menuitem>
+            <p:menuitem value="Data Import" url="DataSource.xhtml" icon="pi pi-fw pi-upload">
+                <f:param name="i" value="1"/>
+            </p:menuitem>
+            <p:menuitem value="Database" url="Database.xhtml" icon="pi pi-fw pi-table">
+                <f:param name="i" value="2"/>
+            </p:menuitem>
+            <p:menuitem value="Pareto Analysis" url="pareto.xhtml" icon="pi pi-fw pi-chart-line">
+                <f:param name="i" value="3"/>
+            </p:menuitem>
+        </p:tabMenu>
+    </div>
+    <div id="content" >
+        <ui:insert name="content">Main Content</ui:insert>
+    </div>
+    </div>
+</h:body>
+</html>

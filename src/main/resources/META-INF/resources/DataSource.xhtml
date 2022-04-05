@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <h:outputStylesheet library="webjars" name="primeflex/2.0.0/primeflex.min.css" />
+</h:head>
+<h:body>
+    <ui:composition template="template.xhtml">
+    <ui:define name="title">DataSource Import</ui:define>
+        <ui:define name="top"><h3>Data Import</h3></ui:define>
+    <ui:define name="content">
+    <style type="text/css">
+        body .ui-inputfield.ui-state-drag {
+            background: #ffffd6;
+        }
+        .shadows_box {
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.03), 0px 0px 2px rgba(0, 0, 0, 0.06), 0px 2px 6px rgba(0, 0, 0, 0.12);
+        }
+    </style>
+    <div class="card">
+    <h:form id="form">
+    <p:growl id="messages" showDetail="true"/>
+        <h3>Choose File for Upload</h3>
+            <p:fileUpload listener="#{dataSourceBean.handleFileUpload}" mode="simple" skinSimple="true" styleClass="p-d-block p-mb-5"
+                          update="messages dataimporttable" auto="true" sizeLimit="10000000" allowTypes="/(\.|\/)(xls|xlsx)$/"/>
+
+        <p:dataTable id="dataimporttable" var="data" value="#{dataSourceBean.importedData}"
+                     filteredValue="#{dataSourceBean.filteredData}" selection="#{dataSourceBean.selectedData}"
+                     sortMode="multiple" allowUnsorting="true" selectionMode="single" rowKey="#{data.id}"
+                     scrollRows="20" scrollable="true"
+                     scrollHeight="750" editable="true" widgetVar="dataImporttable" disabledSelection="true" multiViewState="true" >
+
+            <p:column headerText="Meldung" sortBy="#{data.meldung}" filterBy="#{data.meldung}">
+                <h:outputText value="#{data.meldung}" />
+            </p:column>
+
+            <p:column headerText="StörBeginn" sortBy="#{data.stoerBeginn}" filterBy="#{data.stoerBeginn}" >
+                <h:outputText value="#{data.stoerBeginn}" />
+            </p:column>
+
+            <p:column headerText="Art" sortBy="#{data.art}" filterBy="#{data.art}">
+                <h:outputText value="#{data.art}" />
+            </p:column>
+
+            <p:column headerText="Material" sortBy="#{data.mat}" filterBy="#{data.mat}">
+                <h:outputText value="#{data.mat}" />
+            </p:column>
+
+            <p:column headerText="Beschreibung" sortBy="#{data.beschreibung}" filterBy="#{data.beschreibung}">
+                <h:outputText value="#{data.beschreibung}" />
+            </p:column>
+            <p:column headerText="Verantwortlicher" sortBy="#{data.verantwortlicher}" filterBy="#{data.verantwortlicher}">
+                <h:outputText value="#{data.verantwortlicher}" />
+            </p:column>
+
+            <p:column headerText="Ursache" sortBy="#{data.ursachenNummer}" filterBy="#{data.ursachenNummer}">
+                <h:outputText value="#{data.ursachenNummer}" />
+            </p:column>
+
+            <p:column>
+            <p:commandButton icon="pi pi-pencil" update=":form:manage-meldung"
+                             oncomplete="PF('dataImportTableDialog').show()"
+                             styleClass="edit-button rounded-button ui-button-success" process="@this">
+                <f:setPropertyActionListener value="#{data}" target="#{dataSourceBean.selectedData}"/>
+            </p:commandButton>
+            <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
+                             oncomplete="PF('deleteProductDialog').show()">
+                <f:setPropertyActionListener value="#{data}" target="#{dataSourceBean.selectedData}"/>
+            </p:commandButton>
+            </p:column>
+
+        </p:dataTable>
+
+        <p:dialog header="Meldungs Details" showEffect="fade" modal="true"
+                  widgetVar="dataImportTableDialog" responsive="true">
+            <p:outputPanel id="manage-meldung" class="ui-fluid">
+                <p:outputPanel rendered="#{not empty dataSourceBean.selectedData}">
+                    <div class="p-formgrid p-grid" style="max-width: 80em; min-width: 400px;">
+                        <div class="p-field p-col-12 p-sm-12 p-md-6 p-lg-5 ui-fluid">
+                            <p:outputLabel for="meldung">Meldung</p:outputLabel>
+
+                            <p:inputText id="meldung" value="#{dataSourceBean.selectedData.meldung}" required="true" styleClass="shadows_box"/>
+
+                        </div>
+                        <div class="p-field p-col-12 p-sm-12 p-md-6 p-lg-5 ui-fluid">
+                            <p:outputLabel for="stoerbeginn">Störbeginn</p:outputLabel>
+                            <p:datePicker id="stoerbeginn" value="#{dataSourceBean.selectedData.stoerBeginn}" styleClass="shadows_box"/>
+
+                        </div>
+                        <div class="p-field p-col-12 p-sm-12 p-md-6 p-lg-1 ui-fluid">
+                            <p:outputLabel for="art">Art</p:outputLabel>
+                            <p:inputText id="art" value="#{dataSourceBean.selectedData.art}" styleClass="shadows_box"/>
+                        </div>
+                        <div class="p-field p-col-12 p-sm-12 p-md-6 p-lg-1 ui-fluid">
+                            <p:outputLabel for="baumuster">Baumuster</p:outputLabel>
+
+                            <p:datePicker id="baumuster" value="#{dataSourceBean.selectedData.baumuster}" styleClass="shadows_box"/>
+
+                        </div>
+                    <div class="p-field p-col-12 p-sm-12 p-md-6 p-lg-4 ui-fluid">
+                        <p:outputLabel for="material">Material</p:outputLabel>
+                        <p:inputText id="material" value="#{dataSourceBean.selectedData.mat}" styleClass="shadows_box"/>
+                    </div>
+                    <div class="p-field p-col-12 p-sm-12 p-md-6 p-lg-4 ui-fluid">
+                        <p:outputLabel for="matkurztext">MeterialKurzText</p:outputLabel>
+                        <p:inputText id="matkurztext" value="#{dataSourceBean.selectedData.matKurzText}" styleClass="shadows_box"/>
+                    </div>
+                    <div class="p-field p-col-12 p-sm-12 p-md-6 p-lg-4 ui-fluid">
+                        <p:outputLabel for="positiontext">Positionstext</p:outputLabel>
+                        <p:inputText id="positiontext" value="#{dataSourceBean.selectedData.positionText}" styleClass="shadows_box"/>
+                    </div>
+                    <div class="p-field p-col-12 p-sm-12 p-md-6 p-lg-3 ui-fluid">
+                        <p:outputLabel for="verantwortlicher">Verantwortlicher</p:outputLabel>
+                        <p:inputText id="verantwortlicher" value="#{dataSourceBean.selectedData.verantwortlicher}" styleClass="shadows_box"/>
+                    </div>
+                    <div class="p-field p-col-12 p-sm-12 p-md-6 p-lg-3 ui-fluid">
+                        <p:outputLabel for="arbeitsplatz">Arbeitsplatz</p:outputLabel>
+                        <p:inputText id="arbeitsplatz" value="#{dataSourceBean.selectedData.arbeitsplatz}" styleClass="shadows_box"/>
+                    </div>
+                    <div class="p-field p-col-12 p-sm-12 p-md-6 p-lg-3 ui-fluid">
+                        <p:outputLabel for="refnumber">Referenz Nummer</p:outputLabel>
+                        <p:inputText id="refnumber" value="#{dataSourceBean.selectedData.refNumber}" styleClass="shadows_box"/>
+                    </div>
+                    <div class="p-field p-col-12 p-sm-12 p-md-6 p-lg-3 ui-fluid">
+                        <p:outputLabel for="massnahmencode">MassnahmenCode</p:outputLabel>
+                        <p:inputText id="massnahmencode" value="#{dataSourceBean.selectedData.massnahmenCode}" styleClass="shadows_box"/>
+                    </div>
+                    <div class="p-field p-col-12 p-sm-12 p-md-6 p-lg-6 ui-fluid">
+                        <p:outputLabel for="massnahmentext">Massnahmentext</p:outputLabel>
+                        <p:inputTextarea id="massnahmentext" value="#{dataSourceBean.selectedData.massnahmenText}" styleClass="shadows_box"/>
+                    </div>
+                    <div class="p-field p-col-12 p-sm-12 p-md-6 p-lg-6 ui-fluid">
+                        <p:outputLabel for="beschreibung">Beschreibung</p:outputLabel>
+                        <p:inputTextarea id="beschreibung" value="#{dataSourceBean.selectedData.beschreibung}" styleClass="shadows_box"/>
+                    </div>
+                    <div class="p-field p-col-12 p-sm-12 p-md-3 p-lg-2 ui-fluid">
+                        <p:outputLabel for="createdBy">Angelegt von</p:outputLabel>
+                        <p:inputText id="createdBy" value="#{dataSourceBean.selectedData.createdBy}" styleClass="shadows_box"/>
+                    </div>
+                    <div class="p-field p-col-12 p-sm-12 p-md-3 p-lg-2 ui-fluid">
+                        <p:outputLabel for="taskClosed">Erledigt Datum</p:outputLabel>
+                        <p:datePicker id="taskClosed" value="#{dataSourceBean.selectedData.taskClosed}" styleClass="shadows_box"/>
+                    </div>
+                    <div class="p-field p-col-12 p-sm-12 p-md-3 p-lg-2 ui-fluid">
+                        <p:outputLabel for="taskClosedBy">Erledigt von</p:outputLabel>
+                        <p:inputText id="taskClosedBy" value="#{dataSourceBean.selectedData.taskClosedBy}" styleClass="shadows_box"/>
+                    </div>
+                    <div class="p-field p-col-12 p-sm-12 p-md-3 p-lg-2 ui-fluid">
+                        <p:outputLabel for="werk">Werk</p:outputLabel>
+                        <p:inputText id="werk" value="#{dataSourceBean.selectedData.werksnummer}" styleClass="shadows_box"/>
+                    </div>
+                    <div class="p-field p-col-12 p-sm-12 p-md-2 p-lg-1 ui-fluid">
+                        <p:outputLabel for="ursache">Ursache #</p:outputLabel>
+                        <p:inputText id="ursache" value="#{dataSourceBean.selectedData.ursache}" styleClass="shadows_box"/>
+                    </div>
+                    <div class="p-field p-col-12 p-sm-12 p-md-3 p-lg-2 ui-fluid">
+                        <p:outputLabel for="ursachenNummer">Ursachen Referenz</p:outputLabel>
+                        <p:inputText id="ursachenNummer" value="#{dataSourceBean.selectedData.ursachenNummer}" styleClass="shadows_box"/>
+                    </div>
+                    <div class="p-field p-col-12 p-sm-12 p-md-3 p-lg-2 ui-fluid">
+                        <p:outputLabel for="internalworkplace">Interner Verursacher Arbeitsplatz</p:outputLabel>
+                        <p:inputText id="internalworkplace" value="#{dataSourceBean.selectedData.internalWorkplace}" styleClass="shadows_box"/>
+                    </div>
+                    <div class="p-field p-col-12 p-sm-12 p-md-3 p-lg-2 ui-fluid">
+                        <p:outputLabel for="pruefling">Prüfling</p:outputLabel>
+                        <p:inputText id="pruefling" value="#{dataSourceBean.selectedData.pruefling}" styleClass="shadows_box"/>
+                    </div>
+                    <div class="p-field p-col-12 p-sm-12 p-md-3 p-lg-2 ui-fluid">
+                        <p:outputLabel for="cgrprobl">CodeGruppe Problem</p:outputLabel>
+                        <p:inputText id="cgrprobl" value="#{dataSourceBean.selectedData.cgrprobl}" styleClass="shadows_box"/>
+                    </div>
+                    <div class="p-field p-col-12 p-sm-12 p-md-3 p-lg-2 ui-fluid">
+                        <p:outputLabel for="scd">Schadenscode</p:outputLabel>
+                        <p:inputText id="scd" value="#{dataSourceBean.selectedData.scd}" styleClass="shadows_box"/>
+                    </div>
+                    <div class="p-field p-col-12 p-sm-12 p-md-3 p-lg-2 ui-fluid">
+                        <p:outputLabel for="positionnumber">Nummer Position</p:outputLabel>
+                        <p:inputText id="positionnumber" value="#{dataSourceBean.selectedData.positionNumber}" styleClass="shadows_box"/>
+                    </div>
+                    <div class="p-field p-col-12 p-sm-12 p-md-3 p-lg-2 ui-fluid">
+                        <p:outputLabel for="numberort">Nr. Ort</p:outputLabel>
+                        <p:inputText id="numberort" value="#{dataSourceBean.selectedData.ortnumber}" styleClass="shadows_box"/>
+                    </div>
+                    <div class="p-field p-col-12 p-sm-12 p-md-3 p-lg-2 ui-fluid">
+                        <p:outputLabel for="baugruppe">Baugruppe</p:outputLabel>
+                        <p:inputText id="baugruppe" value="#{dataSourceBean.selectedData.baugruppe}" styleClass="shadows_box"/>
+                    </div>
+                    <div class="p-field p-col-12 p-sm-12 p-md-3 p-lg-2 ui-fluid">
+                        <p:outputLabel for="price">Preis</p:outputLabel>
+                        <p:inputText id="price" value="#{dataSourceBean.selectedData.price}" styleClass="shadows_box"/>
+                    </div>
+
+                    </div>
+
+                </p:outputPanel>
+            </p:outputPanel>
+
+            <f:facet name="footer">
+                <p:commandButton value="Speichern" icon="pi pi-check" actionListener="#{dataSourceBean.saveData()}"
+                                 update="messages dataimporttable manage-meldung" process="manage-meldung @this" oncomplete="PF('dataImportTableDialog').hide()"/>
+                <p:commandButton value="Abbrechen" icon="pi pi-times" onclick="PF('dataImportTableDialog').hide()"
+                                 class="ui-button-secondary"/>
+            </f:facet>
+        </p:dialog>
+
+        <p:confirmDialog widgetVar="deleteProductDialog" showEffect="fade" width="300"
+                         message="Meldung löschen?" header="Löschen bestätigen" severity="warn">
+            <p:commandButton value="Ja" icon="pi pi-check" actionListener="#{dataSourceBean.deleteSelecteData()}"
+                             process="@this" oncomplete="PF('deleteProductDialog').hide()" update="messages dataimporttable"/>
+            <p:commandButton value="Nein" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                             onclick="PF('deleteProductDialog').hide()"/>
+        </p:confirmDialog>
+
+        <p:confirmDialog widgetVar="deleteImportedData" showEffect="fade" width="300"
+                         message="Alle Daten Löschen?" header="Löschen bestätigen" severity="warn">
+            <p:commandButton value="Ja" icon="pi pi-check" actionListener="#{dataSourceBean.deleteDataTable()}"
+                             process="@this" oncomplete="PF('deleteImportedData').hide()" update="messages dataimporttable"/>
+            <p:commandButton value="Nein" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                             onclick="PF('deleteImportedData').hide()"/>
+        </p:confirmDialog>
+
+        <p:toolbar>
+            <p:toolbarGroup></p:toolbarGroup>
+            <p:toolbarGroup align="right">
+                <p:commandButton value="Speichern in DB" icon="pi pi-save" actionListener="#{dataSourceBean.importDataSet}"
+                                 update="messages dataimporttable" oncomplete="PF('dataImporttable').clearFilters()"
+                                 styleClass="ui-button-success" style="margin-right: .5rem">
+                    <p:resetInput target=":form:dataimporttable"/>
+                </p:commandButton>
+                <p:commandButton value="Gesamten Import löschen" class="ui-button-danger" icon="pi pi-trash" process="@this"
+                                 oncomplete="PF('deleteImportedData').show()">
+                    <p:resetInput target=":form:dataimporttable"/>
+                </p:commandButton>
+            </p:toolbarGroup>
+        </p:toolbar>
+    </h:form>
+    </div>
+    </ui:define>
+
+    </ui:composition>
+</h:body>
+</html>

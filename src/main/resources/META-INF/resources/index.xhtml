@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<head>
+    <h:head>
+        <h:outputStylesheet library="webjars" name="primeflex/2.0.0/primeflex.min.css" />
+    </h:head>
+</head>
+<h:body>
+<ui:composition template="template.xhtml">
+<ui:define name="title">Pareto</ui:define>
+<ui:define name="top"><h3>Home</h3></ui:define>
+<ui:define name="content">
+    <div class="card">
+    <div style="position: absolute; left: 50%; top:50%;transform: translate(-50%, -50%);">
+        <div class="align-items-center justify-content-center" style="width:40em; text-align: center">
+            <h1>Demo</h1>
+            <h2>Data Import and Analysis</h2>
+            <p/>
+            <h3>- import Data from Excel File</h3>
+            <h3>- Save Data to Database</h3>
+            <h3>- Show Pareto Analysis and select Date Range for Display</h3>
+            <p/>
+            <h2>Thats it. Thanks.</h2>
+
+            <h4>Sample Data - Excel File</h4>
+            <div class="card">
+                <h:form>
+
+                    <p:commandButton ajax="false" value="Download" icon="pi pi-arrow-down" styleClass="ui-button-outlined">
+                        <p:fileDownload value="#{fileDownloadBean.download()}" />
+                    </p:commandButton>
+                </h:form>
+            </div>
+        </div>
+    </div>
+    </div>
+</ui:define>
+</ui:composition>
+</h:body>
+</html>
