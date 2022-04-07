@@ -23,7 +23,15 @@ A Relation to the "worktable" should be available.
 ##Start in IntelliJ
 1. Start Database Server (with config from application.properties)
 2. Start Application
-3. Start browser and call http://localhost:1234/index.xhtml
+3. Start browser and call http://localhost:1234
 
 ##Start .jar file
 * cmd: java --add-opens java.base/java.lang=ALL-UNNAMED -jar target/QDataAnalysis_0.1-0.0.1-SNAPSHOT.jar
+
+##Start with Docker
+###in Terminal:
+* docker-compose up --build -d
+* access page http://localhost:1234
+* access phpmyadmin http://localhost:8082
+* user: root pass: Testpassword1234#
+
