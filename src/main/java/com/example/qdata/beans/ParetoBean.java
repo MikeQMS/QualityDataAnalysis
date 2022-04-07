@@ -50,7 +50,6 @@ public class ParetoBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        System.out.println(dataService.listData());
         if (dataService.listData().isEmpty()){
             dataService.saveData(new Data(0, LocalDate.of(1990,1,1), "0", "0", "0", "0", "DummyEntry", 0, 0, 0, 0, "0", "0", "0", LocalDate.now() , "0", 0, 0, "0", "0", "0", "0", "ZZZZ", 0, 0, "0", 0));
         }
