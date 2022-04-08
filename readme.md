@@ -13,10 +13,13 @@ I have plenty ideas for improvements and more functionality. I'll keep you poste
 Please drop your questions & suggestions in the comment section.
 
 # Info
+* name = QData Analytics Tool
 * version = 0.2
+* license = EUPL
+* license_files = EUPL-LICENSE.txt
 * author = MikeQMS
 * author-email = mike@qms-consulting.eu
-* home-page = https://github.com/MikeQMS/qAnalysis
+* home-page = https://github.com/MikeQMS/QualityDataAnalysis
 
 ##Start in IntelliJ
 1. Start Database Server (with config from application.properties)
