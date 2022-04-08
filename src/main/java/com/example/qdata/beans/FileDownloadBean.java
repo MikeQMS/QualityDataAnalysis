@@ -31,7 +31,7 @@ public class FileDownloadBean {
 
     public void download(String filename) throws IOException
     {
-        File file = new File("./src/main/resources/file/"+filename).getCanonicalFile();
+        File file = new File("./src/main/resources/META-INF/resources/files/"+filename).getCanonicalFile();
 
         FacesContext facesContext = FacesContext.getCurrentInstance();
 
