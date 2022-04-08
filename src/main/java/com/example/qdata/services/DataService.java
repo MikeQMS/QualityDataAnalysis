@@ -1,3 +1,21 @@
+/*
+    <Q-Data Analytics tool with xlsx import and MySQL DB>
+    Copyright (C) 2022-  MikeQMS
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 package com.example.qdata.services;
 
 import com.example.qdata.dao.DataDAO;
@@ -66,23 +84,6 @@ public class DataService implements Serializable {
         }
         return false;
     }
-
-//    public List<LocalDate> findDateRange(LocalDate startDate, LocalDate endDate) {
-//        List<Date> dateList = new ArrayList<>();
-//        List<LocalDate> dates = new ArrayList<>();
-//        List<LocalDate> localDateList = startDate.datesUntil(endDate.plusDays(1)).collect(Collectors.toList());
-//        for (LocalDate date: localDateList) {
-//            dateList.add(Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()));
-//        }
-//        List <Data> dataDates = dataDAO.findAll().stream().filter(e-> dateList.stream()
-//                        .anyMatch(d -> DateUtils.isSameDay(d, Date.from(e.getStoerBeginn().atStartOfDay(ZoneId.systemDefault()).toInstant()))))
-//                .collect(Collectors.toList());
-//        for (Data data:dataDates) {
-//            dates.add(data.getStoerBeginn());
-//
-//        }
-//        return dates;
-//    }
 
     public List<Data> findDataByRange(LocalDate startDate, LocalDate endDate) {
         List<Data> dataList = new ArrayList<>();

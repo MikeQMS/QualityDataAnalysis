@@ -1,3 +1,21 @@
+/*
+    <Q-Data Analytics tool with xlsx import and MySQL DB>
+    Copyright (C) 2022-  MikeQMS
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 package com.example.qdata.services;
 
 import com.example.qdata.model.Data;
@@ -38,7 +56,6 @@ public class ParetoService {
         return countMap;
     }
 
-
     public <K, V extends Comparable<V>> Map<K, V> maxUsingStreamAndLambda(Map<K, V> map) {
         Map<K,V> sortedEntry = map.entrySet()
                 .stream()
@@ -46,27 +63,6 @@ public class ParetoService {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,(oldValue, newValue) -> oldValue, LinkedHashMap::new));
         return sortedEntry;
     }
-
-//    public <K, V extends Comparable<V>> Map<K, V> maxToMin(Map<String, List<Data>> map) {
-//
-//        List<Map.Entry<K,V>> sortedEntries = new ArrayList<Map.Entry<K,V>>();
-//
-//        Collections.sort(sortedEntries,
-//                new Comparator<Map.Entry<K,V>>() {
-//                    @Override
-//                    public int compare(Map.Entry<K,V> e1, Map.Entry<K,V> e2) {
-//                        return e2.getValue().compareTo(e1.getValue());
-//                    }
-//                }
-//        );
-//        return sortedEntries;
-
-//        Map<K,V> sortedEntry = map.entrySet()
-//                .stream()
-//                .sorted()
-//                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,(oldValue, newValue) -> oldValue, LinkedHashMap::new));
-//        return sortedEntry;
-//    }
 
     public <K, V extends Comparable<V>> List<V> biggestValues(Map<K, V> map) {
         List<V> valuesSorted = new ArrayList<V>(map.values());

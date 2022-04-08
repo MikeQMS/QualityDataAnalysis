@@ -15,8 +15,8 @@ Please drop your questions & suggestions in the comment section.
 # Info
 * name = QData Analytics Tool
 * version = 0.2
-* license = EUPL
-* license_files = EUPL-LICENSE.txt
+* license = GNU GPL 3.0
+* license_files = GPL-LICENSE.txt
 * author = MikeQMS
 * author-email = mike@qms-consulting.eu
 * home-page = https://github.com/MikeQMS/QualityDataAnalysis
