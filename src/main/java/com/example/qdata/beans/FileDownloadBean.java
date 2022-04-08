@@ -11,10 +11,9 @@ import java.io.*;
 @RequestScope
 public class FileDownloadBean {
 
-    public void download() throws IOException
+    public void download(String filename) throws IOException
     {
-
-        File file = new File("src/main/resources/file/Data_example_File.xlsx");
+        File file = new File("./src/main/resources/file/"+filename).getCanonicalFile();
 
         FacesContext facesContext = FacesContext.getCurrentInstance();
 
@@ -23,7 +22,7 @@ public class FileDownloadBean {
 
         response.reset();
         response.setHeader("Content-Type", "application/vnd.ms-excel");
-        response.setHeader("Content-Disposition", "attachment;filename=example_data.xlsx");
+        response.setHeader("Content-Disposition", "attachment;filename="+filename);
 
         OutputStream responseOutputStream = response.getOutputStream();
 
