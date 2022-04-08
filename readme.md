@@ -1,6 +1,6 @@
 # Q-Data Analysis with xls Import and SQL (Maven)
 
-The tool provides a xlsx import functions which adds the data to a mysql database.
+The tool provides a xlsx import function which adds the data to a mysql database.
 This database can be analysed and displayed in a Pareto chart. It quantifies the data 
 by the fault code and produces a Pareto overview. The Pareto can be used to identify
 production errors and to prioritize corresponding projects for the fault reduction. 
