@@ -21,18 +21,19 @@ Please drop your questions & suggestions in the comment section.
 * author-email = mike@qms-consulting.eu
 * home-page = https://github.com/MikeQMS/QualityDataAnalysis
 
-##Start in IntelliJ
+
+## Start in IntelliJ
 1. Start Database Server (with config from application.properties)
 2. Start Application
 3. Start browser and call http://localhost:1234
 
-##Start .jar file
+## Start .jar file
 * cmd: java --add-opens java.base/java.lang=ALL-UNNAMED -jar target/QDataAnalysis_0.1-0.0.1-SNAPSHOT.jar
 * start.bat in Project folder
 
-##Start with Docker
+## Start with Docker
 
-###in Terminal:
+### in Terminal:
 * docker-compose up --build -d
 * access page http://localhost:1234
 * access phpmyadmin http://localhost:8082
