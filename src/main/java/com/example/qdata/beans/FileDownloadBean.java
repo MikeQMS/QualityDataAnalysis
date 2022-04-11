@@ -18,6 +18,7 @@
 
 package com.example.qdata.beans;
 
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.context.annotation.RequestScope;
 
 import javax.faces.context.FacesContext;
@@ -29,9 +30,7 @@ import java.io.*;
 @RequestScope
 public class FileDownloadBean {
 
-    public void download(String filename) throws IOException
-    {
-        File file = new File("./src/main/resources/META-INF/resources/files/"+filename).getCanonicalFile();
+    public void download(String filename) throws IOException {
 
         FacesContext facesContext = FacesContext.getCurrentInstance();
 
@@ -40,16 +39,15 @@ public class FileDownloadBean {
 
         response.reset();
         response.setHeader("Content-Type", "application/vnd.ms-excel");
-        response.setHeader("Content-Disposition", "attachment;filename="+filename);
+        response.setHeader("Content-Disposition", "attachment;filename=" + filename);
 
         OutputStream responseOutputStream = response.getOutputStream();
 
-        InputStream fileInputStream = new FileInputStream(file);
+        InputStream fileInputStream = loadExampleXlsx(filename);
 
         byte[] bytesBuffer = new byte[2048];
         int bytesRead;
-        while ((bytesRead = fileInputStream.read(bytesBuffer)) > 0)
-        {
+        while ((bytesRead = fileInputStream.read(bytesBuffer)) > 0) {
             responseOutputStream.write(bytesBuffer, 0, bytesRead);
         }
 
@@ -61,4 +59,14 @@ public class FileDownloadBean {
         facesContext.responseComplete();
 
     }
+
+    public InputStream loadExampleXlsx(String filename) {
+        try {
+            return new ClassPathResource("file/" + filename).getInputStream();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
