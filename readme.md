@@ -39,7 +39,7 @@ Please drop your questions & suggestions in the comment section.
 * access phpmyadmin http://localhost:8082
 * user: root pass: Testpassword1234#
 
-## Funktions Version 0.1
+## Functions Version 0.1
 * Data Import from Excel
 * Data Base Edit Table
 * Data-analysis Pareto
